@@ -19,4 +19,4 @@ const quizzes = require('./routes/quizzes');
 app.use('/api/quizzes', quizzes);
 
 const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 
