@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.formfields{
+  margin: 2% 0% !important;
+}
+
+.forms{
+  padding: 1% 0%;
+}
+
+.mobileNumber{
+  display: flex;
+}
