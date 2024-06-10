@@ -34,14 +34,6 @@ const ViewQuiz = () => {
         }
     };
 
-    const handleDelete = async () => {
-        try {
-            await axios.delete(`http://localhost:5000/api/quizzes/${id}`);
-            navigate('/quizzes');
-        } catch (err) {
-            console.error(err);
-        }
-    };
 
     return (
         <div className="max-w-lg mx-auto mt-10 p-4 border rounded shadow">
@@ -49,12 +41,6 @@ const ViewQuiz = () => {
                 <>
                     <div className="flex justify-between mb-5">
                         <h2 className="text-2xl font-bold">{quiz.title}</h2>
-                        <button
-                            className="bg-red-600 text-white px-4 py-2 rounded"
-                            onClick={handleDelete}
-                        >
-                            Delete
-                        </button>
                     </div>
                     <form onSubmit={handleSubmit}>
                         {quiz.questions.map((q, i) => (

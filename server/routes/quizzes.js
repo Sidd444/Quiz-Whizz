@@ -33,7 +33,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// Submit answers and calculate score
 router.post('/:id/submit', async (req, res) => {
     try {
         const quiz = await Quiz.findById(req.params.id);

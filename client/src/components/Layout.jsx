@@ -5,7 +5,7 @@ const Layout = () => {
     return (
         <div className='ml-44'>
             <nav className="bg-gray-800 p-4">
-                <ul className="flex justify-between gap-96">
+                <ul className="flex justify-between gap-72">
                     <li>
                         <NavLink to="/" className="text-white" activeClassName="font-bold">
                             Home
@@ -19,6 +19,11 @@ const Layout = () => {
                     <li>
                         <NavLink to="/quizzes" className="text-white" activeClassName="font-bold">
                             Quiz List
+                        </NavLink>
+                    </li>
+                    <li>
+                        <NavLink to="/scoreboard" className="text-white" activeClassName="font-bold" >
+                            ScoreBoard
                         </NavLink>
                     </li>
                 </ul>

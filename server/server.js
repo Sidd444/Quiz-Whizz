@@ -18,5 +18,8 @@ mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true })
 const quizzes = require('./routes/quizzes');
 app.use('/api/quizzes', quizzes);
 
+const users = require('./routes/users');
+app.use('/api/users', users); 
+
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`)); 

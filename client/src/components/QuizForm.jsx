@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
+import { AuthContext } from '../context/AuthContext';
 
 const QuizForm = () => {
+    const { user } = useContext(AuthContext);
     const [title, setTitle] = useState('');
     const [questions, setQuestions] = useState([
         { question: '', options: ['', '', '', ''], correctAnswer: 0 }
@@ -11,7 +13,11 @@ const QuizForm = () => {
         e.preventDefault();
         const newQuiz = { title, questions };
         try {
-            await axios.post('http://localhost:5000/api/quizzes', newQuiz);
+            await axios.post('http://localhost:5000/api/quizzes', newQuiz, {
+                headers: {
+                    Authorization: `Bearer ${user.token}`
+                }
+            });
             alert('Quiz created successfully');
         } catch (err) {
             console.error(err);
@@ -29,62 +35,56 @@ const QuizForm = () => {
     };
 
     return (
-        <div className="flex flex-col items-center">
-            <form onSubmit={handleSubmit} className="w-full max-w-lg bg-white shadow-md rounded-lg p-6">
-                <input
-                    className="block w-full h-12 rounded-lg border-2 mb-5 px-3"
-                    type="text"
-                    placeholder="Enter Your Quiz Title"
-                    value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    required
-                />
-                {questions.map((q, i) => (
-                    <div key={i} className="mb-6">
+        <form onSubmit={handleSubmit}>
+            <input
+                className="block w-80 h-12 rounded-2xl ml-96 border-2 mt-5 mb-5"
+                type="text"
+                placeholder="Enter Your Quiz Title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+            />
+            {questions.map((q, i) => (
+                <div key={i}>
+                    <input
+                        className="block w-96 rounded-2xl ml-96 border-2 mt-5 mb-5"
+                        type="text"
+                        placeholder="Enter The Question"
+                        value={q.question}
+                        onChange={(e) => handleQuestionChange(i, 'question', e.target.value)}
+                        required
+                    />
+                    {q.options.map((option, j) => (
                         <input
-                            className="block w-full h-12 rounded-lg border-2 mb-2 px-3"
+                            className="rounded-xl h-10 m-10"
+                            key={j}
                             type="text"
-                            placeholder="Enter The Question"
-                            value={q.question}
-                            onChange={(e) => handleQuestionChange(i, 'question', e.target.value)}
+                            placeholder={`Option ${j + 1}`}
+                            value={option}
+                            onChange={(e) => {
+                                const newOptions = [...q.options];
+                                newOptions[j] = e.target.value;
+                                handleQuestionChange(i, 'options', newOptions);
+                            }}
                             required
                         />
-                        {q.options.map((option, j) => (
-                            <input
-                                key={j}
-                                className="block w-full h-10 rounded-lg border-2 mb-2 px-3"
-                                type="text"
-                                placeholder={`Option ${j + 1}`}
-                                value={option}
-                                onChange={(e) => {
-                                    const newOptions = [...q.options];
-                                    newOptions[j] = e.target.value;
-                                    handleQuestionChange(i, 'options', newOptions);
-                                }}
-                                required
-                            />
-                        ))}
-                        <label className="block mb-2">Select the Correct Option</label>
-                        <select
-                            className="block w-full h-10 rounded-lg border-2 mb-4 px-3"
-                            value={q.correctAnswer}
-                            onChange={(e) => handleQuestionChange(i, 'correctAnswer', parseInt(e.target.value))}
-                        >
-                            <option value={0}>Option 1</option>
-                            <option value={1}>Option 2</option>
-                            <option value={2}>Option 3</option>
-                            <option value={3}>Option 4</option>
-                        </select>
-                    </div>
-                ))}
-                <button type="button" onClick={addQuestion} className="bg-yellow-600 text-white px-4 py-2 rounded mr-2">
-                    Add Question
-                </button>
-                <button type="submit" className="bg-green-600 text-white px-4 py-2 rounded">
-                    Create Quiz
-                </button>
-            </form>
-        </div>
+                    ))}
+                    <p className="ml-96 mt-5">Enter The Correct Option</p>
+                    <select
+                        className="ml-96 mb-5"
+                        value={q.correctAnswer}
+                        onChange={(e) => handleQuestionChange(i, 'correctAnswer', parseInt(e.target.value))}
+                    >
+                        <option value={0}>Option 1</option>
+                        <option value={1}>Option 2</option>
+                        <option value={2}>Option 3</option>
+                        <option value={3}>Option 4</option>
+                    </select>
+                </div>
+            ))}
+            <button className='ml-96 bg-yellow-600 text-white' type="button" onClick={addQuestion}>Add Question</button>
+            <button className='bg-green-600 text-white ml-20' type="submit">Create Quiz</button>
+        </form>
     );
 };
 

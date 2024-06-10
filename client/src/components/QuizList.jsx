@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 
 const QuizList = () => {
+    const { user } = useContext(AuthContext);
     const [quizzes, setQuizzes] = useState([]);
     const navigate = useNavigate();
 
@@ -16,8 +18,10 @@ const QuizList = () => {
 
     const handleDelete = async (id) => {
         try {
-            await axios.delete(`http://localhost:5000/api/quizzes/${id}`);
-            setQuizzes(quizzes.filter(quiz => quiz._id !== id));
+            if(user.email==="siddharthabharaliassam@gmail.com"){
+               await axios.delete(`http://localhost:5000/api/quizzes/${id}`);
+               setQuizzes(quizzes.filter(quiz => quiz._id !== id));
+            }else alert("Only Admin can delete the quiz");
         } catch (err) {
             console.error(err);
         }
@@ -31,6 +35,7 @@ const QuizList = () => {
                     <li key={quiz._id} className="bg-white shadow-md rounded-lg p-4 mb-4">
                         <div className="flex justify-between items-center">
                             <span className="font-semibold">{quiz.title}</span>
+                            <span className="text-gray-600">Created by {quiz.createdByName}</span>
                             <div>
                                 <button
                                     className="bg-blue-600 text-white px-4 py-2 rounded mr-2"
@@ -38,12 +43,14 @@ const QuizList = () => {
                                 >
                                     Take Quiz
                                 </button>
-                                <button
-                                    className="bg-red-600 text-white px-4 py-2 rounded"
-                                    onClick={() => handleDelete(quiz._id)}
-                                >
-                                    Delete Quiz
-                                </button>
+                                
+                                    <button
+                                        className="bg-red-600 text-white px-4 py-2 rounded"
+                                        onClick={() => handleDelete(quiz._id)}
+                                    >
+                                        Delete Quiz
+                                    </button>
+                               
                             </div>
                         </div>
                     </li>
