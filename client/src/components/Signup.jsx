@@ -23,7 +23,7 @@ const Signup = () => {
     return (
         <div className="flex justify-center items-center h-screen">
             <form onSubmit={handleSubmit} className="w-full max-w-sm p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
+                <h2 className="text-2xl font-bold mb-4 text-white">Sign Up</h2>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
                 <input
                     type="text"
@@ -50,8 +50,8 @@ const Signup = () => {
                     className="w-full p-2 mb-4 border rounded"
                 />
                 <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">Sign Up</button>
-                <p className="mt-4">
-                    Already have an account? <a href="/login" className="text-blue-600">Log in</a>
+                <p className="mt-4 text-white">
+                    Already have an account? <a href="/login" className="text-blue-500">Log in</a>
                 </p>
             </form>
         </div>

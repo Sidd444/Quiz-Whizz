@@ -12,3 +12,6 @@ body{
     background-position: center;
     background-size: cover;
 }
+input::placeholder{
+    margin-left: 100px;
+}
