@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/AuthContext';
 
@@ -8,20 +8,38 @@ const QuizForm = () => {
     const [questions, setQuestions] = useState([
         { question: '', options: ['', '', '', ''], correctAnswer: 0 }
     ]);
+    const [createdByName, setCreatorName] = useState("");
+    const [isNameSet, setIsNameSet] = useState(false);
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const newQuiz = { title, questions };
-        try {
-            await axios.post('http://localhost:5000/api/quizzes', newQuiz, {
+    useEffect(() => {
+        if (isNameSet) {
+            alert(createdByName);
+            const newQuiz = { title, questions, createdByName };
+            axios.post('http://localhost:5000/api/quizzes', newQuiz, {
                 headers: {
                     Authorization: `Bearer ${user.token}`
                 }
+            })
+            .then(() => {
+                alert('Quiz created successfully ' + createdByName);
+            })
+            .catch((err) => {
+                console.error(err);
+            })
+            .finally(() => {
+                setIsNameSet(false);  
             });
-            alert('Quiz created successfully');
-        } catch (err) {
-            console.error(err);
         }
+    }, [createdByName, isNameSet, user.token]); 
+
+    const setNameFunc = () => {
+        setCreatorName(user.name);
+        setIsNameSet(true);
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setNameFunc();
     };
 
     const handleQuestionChange = (index, field, value) => {

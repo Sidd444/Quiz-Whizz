@@ -9,7 +9,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import AuthProvider, { AuthContext } from './context/AuthContext';
 import Scoreboard from './components/Scoreboard';
-
+import './App.css'
 const ProtectedRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
     return user ? children : <Navigate to="/login" />;

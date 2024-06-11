@@ -3,7 +3,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 
 const Layout = () => {
     return (
-        <div className='ml-44'>
+        <div className='ml-28'>
             <nav className="bg-gray-800 p-4">
                 <ul className="flex justify-between gap-72">
                     <li>
