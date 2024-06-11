@@ -1,61 +1,125 @@
-import React, { useState, useContext } from 'react';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState } from 'react';
+import { TextField, Button, Container, Typography, Select, MenuItem, FormControl, InputLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-    const { signup } = useContext(AuthContext);
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    countryCode: '',
+    mobile: '',
+    city: '',
+    qualification: '',
+    password: ''
+  });
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            await signup(name, email, password);
-            navigate('/login');
-        } catch (err) {
-            setError(err.response?.data?.message || 'Error signing up');
-        }
-    };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-    return (
-        <div className="flex justify-center items-center h-screen ml-96">
-            <form onSubmit={handleSubmit} className="w-full max-w-sm bg-white p-6 rounded-lg shadow-md">
-                <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
-                {error && <p className="text-red-600 mb-4">{error}</p>}
-                <input
-                    type="text"
-                    placeholder="Name"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    required
-                    className="w-full p-2 mb-4 border rounded"
-                />
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                    className="w-full p-2 mb-4 border rounded"
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="w-full p-2 mb-4 border rounded"
-                />
-                <button type="submit" className="w-full bg-green-600 text-white p-2 rounded">Sign Up</button>
-                <p className="mt-4">
-                    Already have an account? <a href="/login" className="text-blue-600">Log in</a>
-                </p>
-            </form>
+  const handleSignup = (e) => {
+    e.preventDefault();
+    // Handle signup logic (e.g., API call)
+    // Pass email and password to login page
+    navigate('/login', { state: { email: formData.email, password: formData.password } });
+  };
+
+  return (
+    <Container maxWidth="sm">
+      <Typography variant="h4" className="my-4">Sign Up</Typography>
+      <form onSubmit={handleSignup} className='forms'>
+        <TextField
+          label="First Name"
+          name="firstName"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.firstName}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Last Name"
+          name="lastName"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.lastName}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Email"
+          name="email"
+          type="email"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.email}
+          onChange={handleChange}
+          required
+        />
+        <div className="flex my-2 mobileNumber">
+          <FormControl className="mr-2 w-50">
+            <InputLabel id="country-code-label">Country Code</InputLabel>
+            <Select
+              labelId="country-code-label"
+              name="countryCode"
+              value={formData.countryCode}
+              onChange={handleChange}
+              required
+            >
+              <MenuItem value="+1">+1 (USA)</MenuItem>
+              <MenuItem value="+91">+91 (India)</MenuItem>
+              <MenuItem value="+44">+44 (UK)</MenuItem>
+              {/* Add more country codes as needed */}
+            </Select>
+          </FormControl>
+          <TextField
+            label="Mobile"
+            name="mobile"
+            type="tel"
+            fullWidth
+            value={formData.mobile}
+            onChange={handleChange}
+            required
+          />
         </div>
-    );
+        <TextField
+          label="City"
+          name="city"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.city}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Qualification"
+          name="qualification"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.qualification}
+          onChange={handleChange}
+          required
+        />
+        <TextField
+          label="Password"
+          name="password"
+          type="password"
+          fullWidth
+          className="my-2 formfields"
+          value={formData.password}
+          onChange={handleChange}
+          required
+        />
+        <Button variant="contained" color="primary" type="submit" className="my-2 formfields">
+          Sign Up
+        </Button>
+      </form>
+      <Button onClick={() => navigate('/login')}>Already have an account? Login</Button>
+    </Container>
+  );
 };
 
 export default Signup;

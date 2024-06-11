@@ -9,6 +9,7 @@ import Signup from './components/Signup';
 import Login from './components/Login';
 import AuthProvider, { AuthContext } from './context/AuthContext';
 import Scoreboard from './components/Scoreboard';
+import Navbar from './components/Navbar';
 
 const ProtectedRoute = ({ children }) => {
     const { user } = useContext(AuthContext);
@@ -19,6 +20,7 @@ const App = () => {
     return (
         <AuthProvider>
             <Router>
+            <Navbar></Navbar>
                 <Routes>
                     <Route path="/signup" element={<Signup />} />
                     <Route path="/login" element={<Login />} />
@@ -35,6 +37,7 @@ const App = () => {
                         <Route path="quizzes" element={<QuizList />} />
                         <Route path="quizzes/:id" element={<ViewQuiz />} />
                         <Route path="scoreboard" element={<Scoreboard/>} />
+                
                     </Route>
                 </Routes>
             </Router>
