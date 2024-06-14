@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Quiz = require('../models/Quiz');
-const User = require('../models/User');
 
 // Create a new quiz
 router.post('/', async (req, res) => {
@@ -47,14 +46,6 @@ router.post('/:id/submit', async (req, res) => {
                 score++;
             }
         });
-
-        const token = req.headers.authorization.split(' ')[1];
-        const decoded = jwt.verify(token, 'your_jwt_secret');
-        const user = await User.findById(decoded.id);
-        if (user) {
-            user.score += score;
-            await user.save();
-        }
 
         res.status(200).json({ score });
     } catch (err) {

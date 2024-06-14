@@ -65,7 +65,7 @@ const QuizForm = () => {
             {questions.map((q, i) => (
                 <div key={i}>
                     <input
-                        className="block w-96 rounded-2xl ml-96 border-2 mt-5 mb-5"
+                        className="block w-96 rounded-2xl ml-96 border-2 mt-5 mb-2 h-10"
                         type="text"
                         placeholder="Enter The Question"
                         value={q.question}
@@ -87,9 +87,9 @@ const QuizForm = () => {
                             required
                         />
                     ))}
-                    <p className="ml-96 mt-5">Enter The Correct Option</p>
+                    <p className="mt-5 text-white">Enter The Correct Option</p>
                     <select
-                        className="ml-96 mb-5"
+                        className="mb-5"
                         value={q.correctAnswer}
                         onChange={(e) => handleQuestionChange(i, 'correctAnswer', parseInt(e.target.value))}
                     >
@@ -100,8 +100,8 @@ const QuizForm = () => {
                     </select>
                 </div>
             ))}
-            <button className='ml-96 bg-yellow-600 text-white' type="button" onClick={addQuestion}>Add Question</button>
-            <button className='bg-green-600 text-white ml-20' type="submit">Create Quiz</button>
+            <button className='mb-10 bg-yellow-600 text-white' type="button" onClick={addQuestion}>Add More Question</button>
+            <button className='mb-10 bg-green-600 text-white ml-20' type="submit">Create Quiz</button>
         </form>
     );
 };

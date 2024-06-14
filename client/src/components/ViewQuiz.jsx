@@ -39,13 +39,13 @@ const ViewQuiz = () => {
         <div className="max-w-lg mx-auto mt-10 p-4 border rounded shadow">
             {quiz && (
                 <>
-                    <div className="flex justify-between mb-5">
-                        <h2 className="text-2xl font-bold">{quiz.title}</h2>
+                    <div className="flex justify-between mb-5 text-white">
+                        <h2 className="text-2xl font-bold text-white">{quiz.title}</h2>
                     </div>
                     <form onSubmit={handleSubmit}>
                         {quiz.questions.map((q, i) => (
                             <div key={i} className="mb-4">
-                                <p className="font-semibold">{q.question}</p>
+                                <p className="font-semibold text-white">{q.question}</p>
                                 {q.options.map((option, j) => (
                                     <label key={j} className="block">
                                         <input
@@ -56,7 +56,7 @@ const ViewQuiz = () => {
                                             required
                                             className="mr-2"
                                         />
-                                        {option}
+                                        <span className='text-white'>{option}</span>
                                     </label>
                                 ))}
                             </div>
@@ -64,7 +64,7 @@ const ViewQuiz = () => {
                         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
                     </form>
                     {score !== null && (
-                        <p className="mt-4">Your score: {score}/{quiz.questions.length}</p>
+                        <p className="mt-4 text-white font-bold">Your score: {score}/{quiz.questions.length}</p>
                     )}
                 </>
             )}

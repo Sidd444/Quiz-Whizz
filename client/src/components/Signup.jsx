@@ -15,13 +15,13 @@ const Signup = () => {
         try {
             await signup(name, email, password);
             navigate('/login');
-        } catch (err) {
+        } catch (err) { 
             setError(err.response?.data?.message || 'Error signing up');
         }
     };
 
     return (
-        <div className="flex justify-center items-center h-screen" style={{marginLeft:"33vw"}}>
+        <div className="flex justify-center items-center h-screen text-white" style={{marginLeft:"36vw"}}>
             <form onSubmit={handleSubmit} className="w-full max-w-sm p-6 rounded-lg shadow-md">
                 <h2 className="text-2xl font-bold mb-4">Sign Up</h2>
                 {error && <p className="text-red-600 mb-4">{error}</p>}
