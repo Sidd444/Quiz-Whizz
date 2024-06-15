@@ -2,6 +2,14 @@ import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
+import { Button } from "./Button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./Card";
 
 const QuizList = () => {
   const { user } = useContext(AuthContext);
@@ -32,38 +40,37 @@ const QuizList = () => {
   };
 
   return (
-    <div className="flex flex-col ml-28">
-      <h2 className="text-2xl font-bold mb-5 text-white ml-96">
-        Available Quizzes
-      </h2>
-      <ul className="w-full max-w-md">
-        {quizzes.map((quiz) => (
-          <li
-            key={quiz._id}
-            className="bg-white shadow-md rounded-lg p-4 mb-4 ml-44"
-            style={{ width: "140%" }}
-          >
-            <div className="flex justify-between items-center">
-              <span className="font-semibold">{quiz.title}</span>
-              <span className="text-gray-600">
-                Created by {quiz.createdByName}
-              </span>
-              <div>
-                <button
-                  className="bg-blue-600 text-white px-4 py-2 rounded mr-2"
-                  onClick={() => navigate(`/quizzes/${quiz._id}`)}
-                >
-                  Take Quiz
-                </button>
-
-                <button
-                  className="bg-red-600 text-white px-4 py-2 rounded"
-                  onClick={() => handleDelete(quiz._id)}
-                >
-                  Delete Quiz
-                </button>
-              </div>
-            </div>
+    <div className="flex flex-col justify-center items-center">
+      <h2 className="text-2xl font-bold mb-5 text-white">Available Quizzes</h2>
+      <ul className="rounded-md flex justify-center gap-2 flex-col">
+        {quizzes.map((quiz, i) => (
+          <li key={i}>
+            <Card className="bg-white w-[350px] md:w-[800px]">
+              <CardHeader>
+                <CardTitle>
+                  {i + 1}. {quiz.title}
+                </CardTitle>
+                <CardDescription>
+                  Created by {quiz.createdByName}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="flex justify-around items-center">
+                  <Button
+                    onClick={() => navigate(`/quizzes/${quiz._id}`)}
+                    className="bg-blue-500 text-white"
+                  >
+                    Take Quiz
+                  </Button>
+                  <Button
+                    onClick={() => handleDelete(quiz._id)}
+                    className="bg-red-500 text-white"
+                  >
+                    Delete Quiz
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           </li>
         ))}
       </ul>
