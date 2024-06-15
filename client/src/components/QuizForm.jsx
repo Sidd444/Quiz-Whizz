@@ -74,24 +74,24 @@ const QuizForm = () => {
       </p>
 
       <div className="flex justify-center items-center">
-        <Card className="w-auto bg-white/50">
+        <Card className="w-auto bg-white text-black">
           <CardHeader className="text-center">
             <CardTitle>Create Quiz</CardTitle>
             <CardDescription>
-              Create a new quiz and get the sharable link
+              Create a new quiz and challenge others
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-2">
               <div className="space-x-2">
-                <label htmlFor="title">Quiz Title:</label>
                 <input
                   type="text"
                   value={title}
                   id="title"
                   onChange={(e) => setTitle(e.target.value)}
                   required
-                  className="p-1 bg-transparent focus:outline-none"
+                  placeholder="Enter the title of the quiz"
+                  className="p-1 bg-transparent border border-black w-full"
                 />
               </div>
               <hr />
@@ -106,10 +106,10 @@ const QuizForm = () => {
                     }
                     id="question"
                     required
-                    className="p-1 bg-transparent focus:outline-none"
+                    className="p-1 bg-transparent border border-black"
                   />
                   {q.options.map((option, j) => (
-                    <div className="space-x-2">
+                    <div className="space-y-3 space-x-3">
                       <label htmlFor="option">Option {j + 1}:</label>
                       <input
                         type="text"
@@ -121,11 +121,11 @@ const QuizForm = () => {
                           handleQuestionChange(i, "options", newOptions);
                         }}
                         required
-                        className="p-1 bg-transparent focus:outline-none"
+                        className="p-1 bg-transparent border border-black"
                       />
                     </div>
                   ))}
-                  <div className="space-x-2">
+                  <div className="space-x-2 mt-3">
                     <label htmlFor="title">Correct option:</label>
                     <select
                       className="p-1 rounded-xl bg-neutral-500 text-white text-center"

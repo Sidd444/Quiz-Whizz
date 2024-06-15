@@ -1,6 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
+import { Button } from "./Button";
+import { RadioGroup, RadioGroupItem } from "./RadioGroup";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./Card";
 
 const ViewQuiz = () => {
   const { id } = useParams();
@@ -40,47 +49,57 @@ const ViewQuiz = () => {
   };
 
   return (
-    <div className=" mx-auto mt-10 p-4 border rounded shadow text-white">
+    <div className="flex justify-center items-center h-screen">
       {quiz && (
-        <>
-          <div className="mb-5">
-            <h2 className="text-3xl font-bold text-center">{quiz.title}</h2>
-          </div>
-          <form onSubmit={handleSubmit}>
-            {quiz.questions.map((q, i) => (
-              <div
-                key={i}
-                className="mb-4 border-2 py-2 text-left px-10 rounded"
-              >
-                <p className="font-semibold text-xl">{q.question}</p>
-                {q.options.map((option, j) => (
-                  <label key={j} className="block">
-                    <input
-                      type="radio"
-                      name={`question-${i}`}
-                      value={j}
-                      onChange={(e) => handleAnswerChange(i, e.target.value)}
-                      required
-                      className="mr-2"
-                    />
-                    {option}
-                  </label>
+        <div>
+          <Card className="bg-white text-black flex flex-col w-[300px] md:w-[400px]">
+            <CardHeader>
+              <CardTitle>{quiz.title}</CardTitle>
+              <CardDescription>Created by {quiz.createdByName}</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <form onSubmit={handleSubmit}>
+                {quiz.questions.map((q, i) => (
+                  <div key={i}>
+                    <span className="font-semibold">
+                      {i + 1}. {q.question}
+                    </span>
+                    <div>
+                      <p>Select the correct option: </p>
+                      <RadioGroup className="text-black">
+                        {q.options.map((option, j) => (
+                          <div className="flex items-center space-x-2">
+                            <input
+                              id={j}
+                              type="radio"
+                              required
+                              value={j}
+                              onChange={(e) =>
+                                handleAnswerChange(i, e.target.value)
+                              }
+                              className="w-4 h-4 text-black bg-black"
+                            />
+                            <label htmlFor={j}>{option}</label>
+                          </div>
+                        ))}
+                      </RadioGroup>
+                    </div>
+                  </div>
                 ))}
-              </div>
-            ))}
-            <button
-              type="submit"
-              className="bg-blue-600 text-white px-4 py-2 rounded mb-2 w-44 font-bold"
-            >
-              Submit
-            </button>
-          </form>
-          {score !== null && (
-            <p className="mt-4 font-bold text-2xl text-center">
-              Your score: {score}/{quiz.questions.length}
-            </p>
-          )}
-        </>
+                <div className="flex justify-center">
+                  <Button className="bg-blue-500 text-white" type="submit">
+                    Submit
+                  </Button>
+                </div>
+              </form>
+              {score !== null && (
+                <p className="mt-4 font-bold text-2xl text-center">
+                  Your score: {score}/{quiz.questions.length}
+                </p>
+              )}
+            </CardContent>
+          </Card>
+        </div>
       )}
     </div>
   );
