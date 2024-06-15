@@ -1,6 +1,6 @@
 # Quizz-Whizz
 
-## [Deployed Application Link](put_it_here)
+## [Deployed Application Link](https://quiz-bizz-lake.vercel.app/)
 
 ## Introduction
 
@@ -14,16 +14,17 @@ Quizz-Whizz is a quiz application built with modern web technologies that allows
 ## Technologies Used
 
 - **Frontend:**
+
   - React
   - Tailwind CSS
 
 - **Backend:**
+
   - Node.js
   - Express
 
 - **Database:**
   - MongoDB Atlas
-
 
 ### Prerequisites
 
