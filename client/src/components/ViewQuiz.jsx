@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button } from "./Button";
-import { RadioGroup, RadioGroupItem } from "./RadioGroup";
 import {
   Card,
   CardContent,
@@ -66,7 +65,7 @@ const ViewQuiz = () => {
                     </span>
                     <div>
                       <p>Select the correct option: </p>
-                      <RadioGroup className="text-black">
+                      <div className="text-black">
                         {q.options.map((option, j) => (
                           <div className="flex items-center space-x-2">
                             <input
@@ -82,7 +81,7 @@ const ViewQuiz = () => {
                             <label htmlFor={j}>{option}</label>
                           </div>
                         ))}
-                      </RadioGroup>
+                      </div>
                     </div>
                   </div>
                 ))}
