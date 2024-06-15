@@ -1,6 +1,6 @@
 # Quizz-Whizz
 
-[Deployed Application Link](put_it_here)
+## [Deployed Application Link](put_it_here)
 
 ## Introduction
 
