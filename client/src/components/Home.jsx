@@ -10,25 +10,33 @@ const Home = () => {
         Create and take quizzes to test your knowledge!
       </p>
       <div>
-        <div id="main">
-          <div id="card1" className="cards">
+        <div
+          id="main"
+          className="lg:block lg:flex-row flex flex-col justify-center items-center gap-6"
+        >
+          <div id="card1" className="cards h-auto">
             <h3 className="text-3xl font-bold mb-10">Check Your Knowledge</h3>
             <p>
-              Test yourself with quizzes on various subjects and see how much you know! Sharpen your skills and learn something new every day.
+              Test yourself with quizzes on various subjects and see how much
+              you know! Sharpen your skills and learn something new every day.
             </p>
           </div>
-          <div id="card2" className="cards">
+          <div id="card2" className="cards h-auto">
             <h3 className="text-3xl font-bold mb-10">Create Your Own Quiz</h3>
             <p>
-              Have fun creating custom quizzes for yourself and your friends. Challenge others and share your knowledge by crafting quizzes on your favorite topics.
+              Have fun creating custom quizzes for yourself and your friends.
+              Challenge others and share your knowledge by crafting quizzes on
+              your favorite topics.
             </p>
           </div>
-          <div id="card3" className="cards">
+          <div id="card3" className="cards h-auto">
             <h3 className="text-3xl font-bold mb-10">
               Take Quizzes Created by Others
             </h3>
             <p>
-              Explore quizzes made by other users. From history and science to pop culture and trivia, discover new quizzes and broaden your horizons.
+              Explore quizzes made by other users. From history and science to
+              pop culture and trivia, discover new quizzes and broaden your
+              horizons.
             </p>
           </div>
         </div>
