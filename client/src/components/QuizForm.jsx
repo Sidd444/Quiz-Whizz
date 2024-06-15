@@ -13,7 +13,6 @@ const QuizForm = () => {
 
     useEffect(() => {
         if (isNameSet) {
-            alert(createdByName);
             const newQuiz = { title, questions, createdByName };
             axios.post('http://localhost:5000/api/quizzes', newQuiz, {
                 headers: {
@@ -21,7 +20,7 @@ const QuizForm = () => {
                 }
             })
             .then(() => {
-                alert('Quiz created successfully ' + createdByName);
+                alert('Quiz created successfully by' + createdByName);
             })
             .catch((err) => {
                 console.error(err);
@@ -53,10 +52,13 @@ const QuizForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
+        <div>
+            <p className='font-bold text-white text-center text-3xl mb-10'>Create Your Own Quiz</p>
+        <form className='py-3' onSubmit={handleSubmit}>
             <input
-                className="block w-80 h-12 rounded-2xl ml-96 border-2 mt-5 mb-5"
+                className="block w-96 h-12 rounded-2xl border-2 mt-5 mb-5 px-2"
                 type="text"
+                style={{marginLeft:"35%"}}
                 placeholder="Enter Your Quiz Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -65,7 +67,8 @@ const QuizForm = () => {
             {questions.map((q, i) => (
                 <div key={i}>
                     <input
-                        className="block w-96 rounded-2xl ml-96 border-2 mt-5 mb-5"
+                        className="block w-96 rounded-2xl h-10 border-2 mt-5 mb-5 px-2"
+                        style={{marginLeft:"35%"}}
                         type="text"
                         placeholder="Enter The Question"
                         value={q.question}
@@ -74,7 +77,7 @@ const QuizForm = () => {
                     />
                     {q.options.map((option, j) => (
                         <input
-                            className="rounded-xl h-10 m-10"
+                            className="rounded-xl h-10 m-5 w-96 px-2"
                             key={j}
                             type="text"
                             placeholder={`Option ${j + 1}`}
@@ -87,22 +90,23 @@ const QuizForm = () => {
                             required
                         />
                     ))}
-                    <p className="ml-96 mt-5">Enter The Correct Option</p>
+                    <p className="mt-5 text-white font-bold mb-3">Enter The Correct Option</p>
                     <select
-                        className="ml-96 mb-5"
+                        className="mb-5 rounded-xl bg-green-500 text-white font-bold"
                         value={q.correctAnswer}
                         onChange={(e) => handleQuestionChange(i, 'correctAnswer', parseInt(e.target.value))}
                     >
-                        <option value={0}>Option 1</option>
-                        <option value={1}>Option 2</option>
-                        <option value={2}>Option 3</option>
-                        <option value={3}>Option 4</option>
+                        <option className='font-bold text-white' value={0}>Option 1</option>
+                        <option className='font-bold text-white' value={1}>Option 2</option>
+                        <option className='font-bold text-white' value={2}>Option 3</option>
+                        <option className='font-bold text-white' value={3}>Option 4</option>
                     </select>
                 </div>
             ))}
-            <button className='ml-96 bg-yellow-600 text-white' type="button" onClick={addQuestion}>Add Question</button>
-            <button className='bg-green-600 text-white ml-20' type="submit">Create Quiz</button>
+            <button className='w-60 font-bold bg-yellow-600 text-white h-10 px-2 rounded-xl' type="button" onClick={addQuestion}>Add Question</button>
+            <button className='w-60 font-bold bg-green-600 text-white ml-20 h-10 px-2 rounded-xl' type="submit">Create Quiz</button>
         </form>
+        </div>
     );
 };
 
