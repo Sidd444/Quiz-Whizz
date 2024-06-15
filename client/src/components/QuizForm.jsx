@@ -1,5 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import { Button } from "./Button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./Card";
 import { AuthContext } from "../context/AuthContext";
 
 const QuizForm = () => {
@@ -64,87 +73,107 @@ const QuizForm = () => {
       <p className="font-bold text-white text-center text-3xl mb-10">
         Create Your Own Quiz
       </p>
-      <form className="py-3" onSubmit={handleSubmit}>
-        <input
-          className="block w-96 h-12 rounded-2xl border-2 mt-5 mb-5 px-2"
-          type="text"
-          style={{ marginLeft: "35%" }}
-          placeholder="Enter Your Quiz Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-        />
-        {questions.map((q, i) => (
-          <div key={i}>
-            <input
-              className="block w-96 rounded-2xl h-10 border-2 mt-5 mb-5 px-2"
-              style={{ marginLeft: "35%" }}
-              type="text"
-              placeholder="Enter The Question"
-              value={q.question}
-              onChange={(e) =>
-                handleQuestionChange(i, "question", e.target.value)
-              }
-              required
-            />
-            {q.options.map((option, j) => (
-              <input
-                className="rounded-xl h-10 m-5 w-96 px-2"
-                key={j}
-                type="text"
-                placeholder={`Option ${j + 1}`}
-                value={option}
-                onChange={(e) => {
-                  const newOptions = [...q.options];
-                  newOptions[j] = e.target.value;
-                  handleQuestionChange(i, "options", newOptions);
-                }}
-                required
-              />
-            ))}
-            <p className="mt-5 text-white font-bold mb-3">
-              Enter The Correct Option
-            </p>
-            <select
-              className="mb-5 rounded-xl bg-green-500 text-white font-bold"
-              value={q.correctAnswer}
-              onChange={(e) =>
-                handleQuestionChange(
-                  i,
-                  "correctAnswer",
-                  parseInt(e.target.value)
-                )
-              }
-            >
-              <option className="font-bold text-white" value={0}>
-                Option 1
-              </option>
-              <option className="font-bold text-white" value={1}>
-                Option 2
-              </option>
-              <option className="font-bold text-white" value={2}>
-                Option 3
-              </option>
-              <option className="font-bold text-white" value={3}>
-                Option 4
-              </option>
-            </select>
-          </div>
-        ))}
-        <button
-          className="w-60 font-bold bg-yellow-600 text-white h-10 px-2 rounded-xl"
-          type="button"
-          onClick={addQuestion}
-        >
-          Add Question
-        </button>
-        <button
-          className="w-60 font-bold bg-green-600 text-white ml-20 h-10 px-2 rounded-xl"
-          type="submit"
-        >
-          Create Quiz
-        </button>
-      </form>
+
+      <div className="flex justify-center items-center">
+        <Card className="w-auto bg-white/50">
+          <CardHeader className="text-center">
+            <CardTitle>Create Quiz</CardTitle>
+            <CardDescription>
+              Create a new quiz and get the sharable link
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-2">
+              <div className="space-x-2">
+                <label htmlFor="title">Quiz Title:</label>
+                <input
+                  type="text"
+                  value={title}
+                  id="title"
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                  className="p-1 bg-transparent focus:outline-none"
+                />
+              </div>
+              <hr />
+              {questions.map((q, i) => (
+                <div className="space-x-2" key={i}>
+                  <label htmlFor="question">{i + 1}. Enter question:</label>
+                  <input
+                    type="text"
+                    value={q.question}
+                    onChange={(e) =>
+                      handleQuestionChange(i, "question", e.target.value)
+                    }
+                    id="question"
+                    required
+                    className="p-1 bg-transparent focus:outline-none"
+                  />
+                  {q.options.map((option, j) => (
+                    <div className="space-x-2">
+                      <label htmlFor="option">Option {j + 1}:</label>
+                      <input
+                        type="text"
+                        value={option}
+                        id="option"
+                        onChange={(e) => {
+                          const newOptions = [...q.options];
+                          newOptions[j] = e.target.value;
+                          handleQuestionChange(i, "options", newOptions);
+                        }}
+                        required
+                        className="p-1 bg-transparent focus:outline-none"
+                      />
+                    </div>
+                  ))}
+                  <div className="space-x-2">
+                    <label htmlFor="title">Correct option:</label>
+                    <select
+                      className="p-1 rounded-xl bg-neutral-500 text-white text-center"
+                      value={q.correctAnswer}
+                      onChange={(e) =>
+                        handleQuestionChange(
+                          i,
+                          "correctAnswer",
+                          parseInt(e.target.value)
+                        )
+                      }
+                    >
+                      <option className="text-white" value={0}>
+                        Option 1
+                      </option>
+                      <option className="text-white" value={1}>
+                        Option 2
+                      </option>
+                      <option className="text-white" value={2}>
+                        Option 3
+                      </option>
+                      <option className="text-white" value={3}>
+                        Option 4
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              ))}
+              <hr />
+              <div className="flex justify-around items-center">
+                <Button
+                  onClick={addQuestion}
+                  className="bg-blue-500 text-white rounded-md px-3 py-2 shadow-md"
+                >
+                  Add Question
+                </Button>
+                <Button
+                  className="bg-green-500 text-white rounded-md px-3 py-2 shadow-md"
+                  type="submit"
+                >
+                  Create Quiz
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+      </div>
     </div>
   );
 };
