@@ -33,7 +33,10 @@ const QuizForm = () => {
           }
         )
         .then(() => {
-          alert("Quiz created successfully by" + createdByName);
+          alert("Quiz created successfully by " + createdByName);
+          // Reset form state after successful submission
+          setTitle("");
+          setQuestions([{ question: "", options: ["", "", "", ""], correctAnswer: 0 }]);
         })
         .catch((err) => {
           console.error(err);
@@ -73,8 +76,8 @@ const QuizForm = () => {
         Create Your Own Quiz
       </p>
 
-      <div className="flex justify-center items-center">
-        <Card className="w-auto bg-white text-black">
+      <div className="flex justify-center items-center ">
+        <Card className="w-auto bg-white text-black ">
           <CardHeader className="text-center">
             <CardTitle>Create Quiz</CardTitle>
             <CardDescription>
@@ -97,24 +100,24 @@ const QuizForm = () => {
               <hr />
               {questions.map((q, i) => (
                 <div className="space-x-2" key={i}>
-                  <label htmlFor="question">{i + 1}. Enter question:</label>
+                  <label htmlFor={`question-${i}`}>{i + 1}. Enter question:</label>
                   <input
                     type="text"
                     value={q.question}
                     onChange={(e) =>
                       handleQuestionChange(i, "question", e.target.value)
                     }
-                    id="question"
+                    id={`question-${i}`}
                     required
                     className="p-1 bg-transparent border border-black"
                   />
                   {q.options.map((option, j) => (
-                    <div className="space-y-3 space-x-3">
-                      <label htmlFor="option">Option {j + 1}:</label>
+                    <div className="space-y-3 space-x-3" key={j}>
+                      <label htmlFor={`option-${i}-${j}`}>Option {j + 1}:</label>
                       <input
                         type="text"
                         value={option}
-                        id="option"
+                        id={`option-${i}-${j}`}
                         onChange={(e) => {
                           const newOptions = [...q.options];
                           newOptions[j] = e.target.value;
@@ -126,7 +129,7 @@ const QuizForm = () => {
                     </div>
                   ))}
                   <div className="space-x-2 mt-3">
-                    <label htmlFor="title">Correct option:</label>
+                    <label htmlFor={`correctAnswer-${i}`}>Correct option:</label>
                     <select
                       className="p-1 rounded-xl bg-neutral-500 text-white text-center"
                       value={q.correctAnswer}
@@ -137,6 +140,7 @@ const QuizForm = () => {
                           parseInt(e.target.value)
                         )
                       }
+                      id={`correctAnswer-${i}`}
                     >
                       <option className="text-white" value={0}>
                         Option 1

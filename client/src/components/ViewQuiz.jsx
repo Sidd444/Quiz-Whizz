@@ -59,7 +59,7 @@ const ViewQuiz = () => {
             <CardContent>
               <form onSubmit={handleSubmit}>
                 {quiz.questions.map((q, i) => (
-                  <div key={i}>
+                  <div key={i} className="mt-4">
                     <span className="font-semibold">
                       {i + 1}. {q.question}
                     </span>
@@ -67,10 +67,11 @@ const ViewQuiz = () => {
                       <p>Select the correct option: </p>
                       <div className="text-black">
                         {q.options.map((option, j) => (
-                          <div className="flex items-center space-x-2">
+                          <div className="flex items-center space-x-2" key={j}>
                             <input
-                              id={j}
+                              id={`question-${i}-option-${j}`}
                               type="radio"
+                              name={`question-${i}`}
                               required
                               value={j}
                               onChange={(e) =>
@@ -78,7 +79,9 @@ const ViewQuiz = () => {
                               }
                               className="w-4 h-4 text-black bg-black"
                             />
-                            <label htmlFor={j}>{option}</label>
+                            <label htmlFor={`question-${i}-option-${j}`}>
+                              {option}
+                            </label>
                           </div>
                         ))}
                       </div>
