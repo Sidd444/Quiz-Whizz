@@ -1,6 +1,6 @@
 # Quizz-Whizz
 
-## [Deployed Application Link](https://quiz-bizz-lake.vercel.app/)
+## [Deployed Application Link](https://quiz-whizz.vercel.app/login)
 
 ## Introduction
 
