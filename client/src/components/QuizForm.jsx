@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import axios from "axios";
+import SERVER_URL from "../config";
 import { Button } from "./Button";
 import {
   Card,
@@ -24,7 +25,7 @@ const QuizForm = () => {
       const newQuiz = { title, questions, createdByName };
       axios
         .post(
-          "https://clownfish-app-7icys.ondigitalocean.app/api/quizzes",
+          `${SERVER_URL}/api/quizzes`,
           newQuiz,
           {
             headers: {

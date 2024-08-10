@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import SERVER_URL from "../config";
 
 const Quiz = ({ quiz, onDelete }) => {
   const [answers, setAnswers] = useState(
@@ -17,7 +18,7 @@ const Quiz = ({ quiz, onDelete }) => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://clownfish-app-7icys.ondigitalocean.app/api/quizzes/${quiz._id}/submit`,
+        `${SERVER_URL}/api/quizzes/${quiz._id}/submit`,
         { answers }
       );
       setScore(res.data.score);

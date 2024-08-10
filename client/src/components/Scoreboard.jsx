@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import SERVER_URL from "../config";
 
 const Scoreboard = () => {
   const [users, setUsers] = useState([]);
@@ -7,7 +8,7 @@ const Scoreboard = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       const res = await axios.get(
-        "https://clownfish-app-7icys.ondigitalocean.app/api/scoreboard"
+        `${SERVER_URL}/api/scoreboard`
       );
       setUsers(res.data);
     };

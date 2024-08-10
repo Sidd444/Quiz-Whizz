@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
+import SERVER_URL from "../config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { Button } from "./Button";
@@ -19,7 +20,7 @@ const QuizList = () => {
   useEffect(() => {
     const fetchQuizzes = async () => {
       const res = await axios.get(
-        "https://clownfish-app-7icys.ondigitalocean.app/api/quizzes"
+        `${SERVER_URL}/api/quizzes`
       );
       setQuizzes(res.data);
     };
@@ -30,7 +31,7 @@ const QuizList = () => {
     try {
       if (user.email === "siddharthabharaliassam@gmail.com") {
         await axios.delete(
-          `https://clownfish-app-7icys.ondigitalocean.app/api/quizzes/${id}`
+          `${SERVER_URL}/api/quizzes/${id}`
         );
         setQuizzes(quizzes.filter((quiz) => quiz._id !== id));
       } else alert("Only Admin can delete the quiz");
