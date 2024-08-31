@@ -1,10 +1,16 @@
 import React from "react";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
+
+
 
 const Home = () => {
+
+  const {user}=useContext(AuthContext);
   return (
     <div className="text-center mt-10">
       <h1 className="text-4xl text-white font-bold mb-5">
-        Welcome to Quizz-Whizz
+        {`Welcome to Quizz-Whizz ${user.name}`}
       </h1>
       <p className="text-lg text-white">
         Create and take quizzes to test your knowledge!

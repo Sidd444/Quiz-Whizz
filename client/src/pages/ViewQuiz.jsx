@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
-import { Button } from "./Button";
+import { Button } from "../components/Button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./Card";
+} from "../components/Card";
+import SERVER_URL from "../config";
 
 const ViewQuiz = () => {
   const { id } = useParams();
@@ -20,7 +21,7 @@ const ViewQuiz = () => {
   useEffect(() => {
     const fetchQuiz = async () => {
       const res = await axios.get(
-        `https://clownfish-app-7icys.ondigitalocean.app/api/quizzes/${id}`
+        `${SERVER_URL}/api/quizzes/${id}`
       );
       setQuiz(res.data);
       setAnswers(Array(res.data.questions.length).fill(null));
@@ -38,7 +39,7 @@ const ViewQuiz = () => {
     e.preventDefault();
     try {
       const res = await axios.post(
-        `https://clownfish-app-7icys.ondigitalocean.app/api/quizzes/${id}/submit`,
+        `${SERVER_URL}/api/quizzes/${id}/submit`,
         { answers }
       );
       setScore(res.data.score);
@@ -48,10 +49,10 @@ const ViewQuiz = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen text-white ">
       {quiz && (
         <div>
-          <Card className="bg-white text-black flex flex-col w-[300px] md:w-[400px]">
+          <Card className="flex flex-col w-[300px] md:w-[400px] bg-gradient-to-r from-violet-700 via-red-500 to-pink-700">
             <CardHeader>
               <CardTitle>{quiz.title}</CardTitle>
               <CardDescription>Created by {quiz.createdByName}</CardDescription>
@@ -63,9 +64,10 @@ const ViewQuiz = () => {
                     <span className="font-semibold">
                       {i + 1}. {q.question}
                     </span>
+                    <hr></hr>
                     <div>
                       <p>Select the correct option: </p>
-                      <div className="text-black">
+                      <div>
                         {q.options.map((option, j) => (
                           <div className="flex items-center space-x-2" key={j}>
                             <input

@@ -3,14 +3,14 @@ import axios from "axios";
 import SERVER_URL from "../config";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { Button } from "./Button";
+import { Button } from "../components/Button";
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./Card";
+} from "../components/Card";
 
 const QuizList = () => {
   const { user } = useContext(AuthContext);
@@ -46,7 +46,7 @@ const QuizList = () => {
       <ul className="rounded-md flex justify-center gap-2 flex-col">
         {quizzes.map((quiz, i) => (
           <li key={i}>
-            <Card className="bg-white w-[350px] md:w-[800px]">
+            <Card className="w-[350px] md:w-[800px] text-white font-semibold bg-gradient-to-r from-pink-600 via-violet-500 to-violet-700">
               <CardHeader>
                 <CardTitle>
                   {i + 1}. {quiz.title}

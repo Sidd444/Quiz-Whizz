@@ -6,15 +6,16 @@ import {
   Navigate,
 } from "react-router-dom";
 import Layout from "./components/Layout";
-import Home from "./components/Home";
-import QuizForm from "./components/QuizForm";
-import QuizList from "./components/QuizList";
-import ViewQuiz from "./components/ViewQuiz";
-import Signup from "./components/Signup";
-import Login from "./components/Login";
+import Home from "./pages/Home";
+import QuizForm from "./pages/QuizForm";
+import QuizList from "./pages/QuizList";
+import ViewQuiz from "./pages/ViewQuiz";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
 import AuthProvider, { AuthContext } from "./context/AuthContext";
-import Scoreboard from "./components/Scoreboard";
+import Scoreboard from "./pages/Scoreboard";
 import "./App.css";
+
 const ProtectedRoute = ({ children }) => {
   const { user } = useContext(AuthContext);
   return user ? children : <Navigate to="/login" />;
